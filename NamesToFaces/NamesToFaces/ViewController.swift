@@ -74,9 +74,7 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         
         let person = Person(name: "Unknown", image: imageName)
         people.append(person)
-        DispatchQueue.main.async { [weak self] in
-            self?.save()
-        }
+            self.save()
         collectionView.reloadData()
         dismiss(animated: true)
     }
@@ -93,16 +91,12 @@ class ViewController: UICollectionViewController, UIImagePickerControllerDelegat
         ac.addAction(UIAlertAction(title: "Rename Photo", style: .default) { [weak self, weak ac] _ in
             guard let newName = ac?.textFields?[0].text else {return}
             person.name = newName
-            DispatchQueue.main.async {
                 self?.save()
-            }
             self?.collectionView.reloadData()
         })
         ac.addAction(UIAlertAction(title: "Delete Photo", style: .destructive){ [weak self] _ in
             self?.people.remove(at: indexPath.item)
-            DispatchQueue.main.async {
                 self?.save()
-            }
             self?.collectionView.reloadData()
 
         })
